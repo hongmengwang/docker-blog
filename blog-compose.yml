@@ -1,0 +1,31 @@
+version: "3"
+services:
+  mysql:
+    image: "mysql:5.7"
+    container_name: blog-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: blog
+      MYSQL_USER: blog
+      MYSQL_PASSWORD: blog
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci --init-connect='SET NAMES UTF8;' --innodb-flush-log-at-trx-commit=0
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
+    networks:
+      - blog
+  wordpress: 
+    image: "wordpress:4.9.1"
+    container_name: blog-wordpress
+    links:
+      - mysql:mysql
+    environment:
+      WORDPRESS_DB_NAME: blog
+      WORDPRESS_DB_USER: blog
+      WORDPRESS_DB_PASSWORD: blog
+    ports:
+      - 80:80
+    networks:
+      - blog
+networks:
+  blog:
+    driver: bridge
