@@ -28,20 +28,22 @@ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 sudo systemctl enable docker
 sudo systemctl start docker
 ```
+## 2. https/nginx配置
 
-## 2. docker-compose创建启动wordpress/mysql
-```
-sudo docker-compose -f blog-compose.yml up -d
-```
+### 2.1 替换证书
+将domain.key/chained.pem替换成自己域名的私钥/共钥，可以在Let's Encrypt申请免费的证书
 
-## 3. 测试wordpress
-```
-http://localhost
-```
+### 2.2. 修改nginx
+替换nginx.conf中wanghongmeng.com为自己域名，其他配置可自行调整
 
-> P.S. 不使用docker-compose，单独创建wordpress/mysql
-```
-docker run --name blog-mysql -v /var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=mysql -e MYSQL_DATABASE=blog -e MYSQL_USER=blog -e=MYSQL_PASSWORD=blog -d mysql:5.7 --character-set-server=utf8 --collation-server=utf8_general_ci
-docker run --name blog-wordpress --link blog-mysql:mysql -e WORDPRESS_DB_USER=blog -e WORDPRESS_DB_PASSWORD=blog -e WORDPRESS_DB_NAME=blog -p 8080:80 -d wordpress:4.9.1
-```
-## https版本请参考https分支
+## 3. wordpress配置
+
+### 3.1 初始化
+登陆```http://xxx.com```初始化wordpress配置
+
+### 3.2. 安装https插件
+安装Really Simple SSL插件，启用全站https
+
+### 3.2. 测试访问
+访问```https://xxx.com```
+
