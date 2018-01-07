@@ -44,6 +44,6 @@ sudo systemctl start docker
 ### 3.2. 安装https插件
 安装Really Simple SSL插件，启用全站https
 
-### 3.2. 测试访问
+### 3.3. 测试访问
 访问```https://xxx.com```
 
